@@ -98,6 +98,7 @@ namespace Porjeto_Controle_Vendas.br.com.projeto.VIEW
             //verificar se foi apertado o entrer, pois nossa ação só pode ser executado depois dele
             if(e.KeyChar == 13)
             {
+                //alterao 15/01/2026
                 
                     cliente = clientedao.RetornaClientePorCpfCnpj(txtCNPJCPF.Text);
                 if (cliente != null)
