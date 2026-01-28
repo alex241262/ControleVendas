@@ -33,6 +33,9 @@ namespace Porjeto_Controle_Vendas.br.com.projeto.VIEW
                 // variaveis dos campos de valores
                 decimal v_Dinheiro, v_Cartao, troco, totalPago, total;
 
+                ProdutoDAO dao_Produto = new ProdutoDAO();
+                int qtd_estoque, qtd_comprada, estoque_atualizado;
+
                 v_Dinheiro = decimal.Parse(txtDinheiro.Text);
                 v_Cartao = decimal.Parse(txtCartao.Text);
                 total = decimal.Parse(txtTotal.Text);
@@ -68,6 +71,13 @@ namespace Porjeto_Controle_Vendas.br.com.projeto.VIEW
                         itenv.produto_id = int.Parse(linhas["Codigo"].ToString());
                         itenv.qtd = int.Parse(linhas["Qtd"].ToString());
                         itenv.subtotal = decimal.Parse(linhas["SubTotal"].ToString());
+
+                        //dar baixa no estqoue dos itens
+                        qtd_estoque = dao_Produto.retornaEstoqueAtual(itenv.produto_id);
+                        qtd_comprada = itenv.qtd;
+                        estoque_atualizado = qtd_estoque - qtd_comprada;
+
+                        dao_Produto.baixaEstoque(itenv.produto_id, estoque_atualizado);
 
                         ItemVendaDAO itemVendaDAO = new ItemVendaDAO();
                         itemVendaDAO.CadastrarItemVenda(itenv);
